@@ -1,0 +1,49 @@
+.cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.mat-cell {
+    width: 200px;
+}
+
+.margin-top {
+    margin-top: 150px;
+}
+
+a {
+    font-weight: bold;
+    color: var(--deep-blue);
+}
+
+p {
+    font-size: 18px;
+    text-align: center;
+}
+
+.footer {
+    color: var(--deep-blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 72%;
+    margin-top: 40px;
+}
+
+b {
+    font-size: 20px; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mat-icon-deep-blue {
+    font-size: 100px;
+    height: 100px;
+    width: 100px;
+}

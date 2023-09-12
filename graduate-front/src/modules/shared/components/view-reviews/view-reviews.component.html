@@ -1,0 +1,24 @@
+<div class="dialog">
+    <h3 mat-dialog-title>Recenzije</h3>
+    <div *ngFor="let review of reviews; index as i">
+        <div class="review">
+            <div class="row">
+                <p><b>{{review.userName}}</b></p>
+                <button mat-icon-button *ngIf="isAdmin()" (click)="deleteReview(review.id, review.offerId)"><mat-icon class="mat-icon-deep-blue">delete</mat-icon></button>
+            </div>
+            <div>
+                <p>{{review.text}}</p>
+                <ngx-stars
+                [readonly]="true"
+                customSize="1rem"
+                [initialStars]="review.rate"
+                color="var(--stars-gold)"
+                >
+              </ngx-stars>
+              <p style="text-align: right;">{{review.date | dateFormat}}</p>
+            </div>
+        </div>
+    </div>
+    
+  </div>
+  

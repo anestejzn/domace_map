@@ -1,0 +1,22 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: center;
+    margin-top: 4rem;  
+}
+
+.review {
+    border: 1px solid var(--deep-blue);
+    padding: 0.4rem;
+    margin-left: 4rem;
+    border-radius: 10px;
+    width: 30rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}

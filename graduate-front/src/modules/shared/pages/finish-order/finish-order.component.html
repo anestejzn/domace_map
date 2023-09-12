@@ -1,0 +1,107 @@
+<div class="form-container" *ngIf="!showSpiner; else spinerBlock">
+    <div *ngIf="!done" class="row">
+        <h1 class="text-center">ISPORUKA</h1>
+        <div>
+            <form color="primary" [formGroup]="orderForm">
+                <div style="display: flex">
+                    <mat-form-field class="column" appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="emailFormControl" 
+                            placeholder="email@domain.com" />
+                        <mat-error name="invalidEmail" *ngIf="
+                    orderForm?.get('emailFormControl')?.hasError('email') &&
+                    !orderForm?.get('emailFormControl')?.hasError('required')
+                ">
+                            Nevalidan unos.
+                        </mat-error>
+                        <mat-error name="emptyEmail" *ngIf="orderForm?.get('emailFormControl')?.hasError('required')">
+                            Email je <strong>obavezno</strong> polje.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="column" appearance="fill">
+                        <mat-label>Broj telefona</mat-label>
+                        <input type="string" matInput formControlName="phoneFormControl"/>
+                        <mat-error name="invalidPhone" *ngIf="
+                    orderForm?.get('emailFormControl')?.hasError('pattern') &&
+                    !orderForm?.get('emailFormControl')?.hasError('required')
+                ">
+                            Nevalidan unos.
+                        </mat-error>
+                        <mat-error name="emptyEmail" *ngIf="orderForm?.get('phoneFormControl')?.hasError('required')">
+                            Broj telefona je <strong>obavezno</strong> polje.
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div style="display: flex">
+                    <mat-form-field class="column" appearance="fill">
+                        <mat-label>Ime</mat-label>
+                        <input type="text" matInput formControlName="nameFormControl" 
+                            placeholder="Unesite ime" />
+                        <mat-error name="emptyName" *ngIf="orderForm?.get('nameFormControl')?.hasError('required')">
+                            Ime je <strong>obavezno</strong> polje.
+                        </mat-error>
+                        <mat-error name="invalidName" *ngIf="orderForm?.get('nameFormControl')?.hasError('pattern')">
+                            Nevalidan unos.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="column" appearance="fill">
+                        <mat-label>Prezime</mat-label>
+                        <input type="text" matInput formControlName="surnameFormControl" 
+                            placeholder="Unesite prezime" />
+                        <mat-error name="emptySurname" *ngIf="
+                    orderForm?.get('surnameFormControl')?.hasError('required')
+                ">
+                            Prezime je <strong>obavezno</strong> polje.
+                        </mat-error>
+                        <mat-error name="invalidSurname" *ngIf="
+                    orderForm?.get('surnameFormControl')?.hasError('pattern')
+                ">
+                            Nevalidan unos.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="fill" style="max-width: 33rem; margin-top: 1rem;">
+                    <mat-label class="font-size-label">Adresa</mat-label>
+                    <input
+                        type="text"
+                        matInput
+                        ngx-google-places-autocomplete
+                        [options]="options"
+                        aria-label="State"
+                        (onAddressChange)="addressChange($event)"
+                        placeholder="Unesite preciznu adresu za isporuku"
+                        class="font-size-input"
+                    />
+                    <mat-icon matSuffix>location_on</mat-icon>
+                </mat-form-field>
+
+                <div class="center">
+                    <button mat-raised-button class="green-button" (click)="finishOrder()">
+                        POTVRDI
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- <div>
+            <h3>Pregled porudžbine</h3>
+            <b>Broj artikala: {{storedCartNumber}}</b>
+            <b>Cena: </b>
+        </div> -->
+    </div>
+
+    <div *ngIf="done">
+        <h1 style="text-align: center;"><mat-icon color="var(--deep-blue)">check_circle_outline</mat-icon> Porudžbina je zabeležena.</h1>
+        <p style="text-align: center; font-size: 17px;">Vaša porudžbina je poslata proizvodjačima.<br/> Bićete obavešteni o budućem statusu porudžbine.</p>
+    </div>
+
+   
+</div>
+<ng-template #spinerBlock>
+    <div class="form-container mat-elevation-z2 spiner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

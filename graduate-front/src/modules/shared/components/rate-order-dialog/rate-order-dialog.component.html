@@ -1,0 +1,43 @@
+<div class="dialog">
+    <h3 mat-dialog-title>Ocenite proizvod </h3>
+    <div mat-dialog-content class="content">
+      <div class="stars-content">
+          <ngx-stars
+            [readonly]="false"
+            customSize="1.5rem"
+            [initialStars]="rate"
+            (ratingOutput)="onRatingSet($event)"
+            color="var(--stars-gold)"
+            style="left:50%"
+            >
+          </ngx-stars>
+      </div>
+      <p *ngIf="error !== ''" style="color: var(--red); font-weight: bold">
+        {{ error }}
+      </p>
+      <textarea
+        matInput
+        rows="4"
+        cols="40"
+        placeholder="Unesite komentar..."
+        [(ngModel)]="comment"></textarea>
+    </div>
+    <div mat-dialog-actions>
+        <button
+            mat-button
+            [mat-dialog-close]="null"
+            style="background-color: var(--white); color: var(--deep-blue)"
+        >
+            Otkaži
+        </button>
+        <button
+            mat-button
+            cdkFocusInitial
+            (click)="confirm()"
+            style="background-color: var(--deep-blue); color: var(--white)"
+        >
+            Potvrdi
+        </button>
+    </div>
+  </div>
+  

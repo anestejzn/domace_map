@@ -1,0 +1,48 @@
+<div class="form-container mat-elevation-z1">
+    <h1 class="text-center">PRIJAVA</h1>
+    <form color="primary" [formGroup]="loginForm">
+      <mat-form-field
+        class="full-width"
+        appearance="fill"
+        style="min-height: 30px">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="email@domain.com"
+          formControlName="email"
+          name="email"
+          required />
+      </mat-form-field>
+  
+      <mat-form-field class="password-field" appearance="fill">
+        <mat-label>Lozinka</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+          required
+          name="password"
+          placeholder="Unesite lozinku" />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon class="mat-icon-deep-blue">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <a [routerLink]="['/serb-uber/auth/forgot-password']" class="link">Zaboravili ste lozinku?</a>
+  
+      <div class="center margin-top">
+        <button mat-raised-button (click)="logIn()" class="login-button" id="submit-login">
+          Prijavite se
+        </button>
+      </div>
+      <span class="center margin-top" style="color: var(--deep-blue)"
+        >Nemate nalog?
+        <a [routerLink]="['/map/auth/register']" style="margin-left: 5px" class="link">Registrujte se</a>
+      </span>
+    </form>
+  </div>
+  

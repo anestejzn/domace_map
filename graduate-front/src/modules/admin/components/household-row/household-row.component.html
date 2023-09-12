@@ -1,0 +1,15 @@
+<mat-card class="card" (click)="navigateToHousehold(household.id)">
+    <div style="display:flex">
+      <mat-card-content>
+        <div class="product-info-container">
+            <p class="title">Domaćinstvo {{household.name}}</p>
+            <p class="address">{{household.address.street}} {{household.address.number}}</p>
+            <p class="address">{{household.address.city}}</p>
+        </div>
+        <p class="icon-text">
+            <mat-icon>chevron_right</mat-icon> {{household.offers.length}} proizvoda
+        </p>
+      </mat-card-content>
+    </div>
+  </mat-card>
+  

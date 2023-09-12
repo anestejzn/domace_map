@@ -1,0 +1,30 @@
+.paginator {
+    bottom: 5rem;
+    position: absolute;
+    width: 100%;
+    color: var(--deep-blue);
+}
+
+.button-add {
+    color: var(--deep-blue);
+    border-color: var(--deep-blue);
+    border-width: 2px;
+    font-weight: bold;
+    margin-top: 2rem;
+    height: 3rem;
+}
+
+.products {
+    margin-left: 11%;
+    margin-top: 1rem;
+}
+
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

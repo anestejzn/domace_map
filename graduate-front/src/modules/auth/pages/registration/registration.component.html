@@ -1,0 +1,118 @@
+<div class="form-container mat-elevation-z1" *ngIf="!showSpiner; else spinerBlock">
+    <h1 class="text-center">REGISTRACIJA</h1>
+    <form color="primary" [formGroup]="registrationForm">
+        <div style="display: flex">
+            <mat-form-field class="email-colomn" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="emailFormControl" 
+                    placeholder="email@domain.com" />
+                <mat-error name="invalidEmail" *ngIf="
+            registrationForm?.get('emailFormControl')?.hasError('email') &&
+            !registrationForm?.get('emailFormControl')?.hasError('required')
+          ">
+                    Nevalidan unos.
+                </mat-error>
+                <mat-error name="emptyEmail" *ngIf="registrationForm?.get('emailFormControl')?.hasError('required')">
+                    Email je <strong>obavezno</strong> polje.
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+        <div style="display: flex">
+            <mat-form-field class="colomn" appearance="fill">
+                <mat-label>Ime</mat-label>
+                <input type="text" matInput formControlName="nameFormControl" 
+                    placeholder="Unesite ime" />
+                <mat-error name="emptyName" *ngIf="registrationForm?.get('nameFormControl')?.hasError('required')">
+                    Ime je <strong>obavezno</strong> polje.
+                </mat-error>
+                <mat-error name="invalidName" *ngIf="registrationForm?.get('nameFormControl')?.hasError('pattern')">
+                    Nevalidan unos.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="colomn" appearance="fill">
+                <mat-label>Prezime</mat-label>
+                <input type="text" matInput formControlName="surnameFormControl" 
+                    placeholder="Unesite prezime" />
+                <mat-error name="emptySurname" *ngIf="
+            registrationForm?.get('surnameFormControl')?.hasError('required')
+          ">
+                    Prezime je <strong>obavezno</strong> polje.
+                </mat-error>
+                <mat-error name="invalidSurname" *ngIf="
+            registrationForm?.get('surnameFormControl')?.hasError('pattern')
+          ">
+                    Nevalidan unos.
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="display: flex">
+            <mat-form-field class="password-colomn" appearance="fill">
+                <mat-label>Lozinka</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="passwordFormControl"
+                     placeholder="Unesite lozinku" />
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                    <mat-icon class="mat-icon-deep-blue">{{
+                        hideConfirmPassword ? 'visibility_off' : 'visibility'
+                        }}</mat-icon>
+                </button>
+                <mat-error name="invalidPassword" *ngIf="
+            registrationForm?.get('passwordFormControl')?.hasError('minlength') &&
+            !registrationForm?.get('passwordFormControl')?.hasError('required')
+          ">
+                    Lozinka treba da sadrži najmanje 8 karaktera
+                </mat-error>
+                <mat-error name="emptyPassword" *ngIf="
+            registrationForm?.get('passwordFormControl')?.hasError('required')
+          ">
+                    Lozinka je <strong>obavezno</strong> polje.
+                </mat-error>
+                <mat-error name="invalidPassword" *ngIf="
+            registrationForm?.get('passwordFormControl')?.hasError('pattern')
+          ">
+                    Nevalidna lozinka.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="password-colomn" appearance="fill">
+                <mat-label>Ponovljena lozinka</mat-label>
+                <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="passwordAgainFormControl"
+                     placeholder="Potvrdite lozinku" />
+                <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                    <mat-icon class="mat-icon-deep-blue">{{
+                        hideConfirmPassword ? 'visibility_off' : 'visibility'
+                        }}</mat-icon>
+                </button>
+                <mat-error name="emptyPasswordAgain" *ngIf="
+                        registrationForm?.get('passwordAgainFormControl')?.hasError('required')
+                      ">
+                    Ponovljena lozinka je <strong>obavezno</strong> polje.
+                </mat-error>
+                <mat-error name="notMatchPass" *ngIf="
+                        getError() &&
+                        !registrationForm?.get('passwordAgainFormControl')?.hasError('minlength')
+                      ">
+                    Lozinke se ne poklapaju.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <br />
+        <div class="center">
+            <button mat-raised-button class="green-button" (click)="register()">
+                Registruj se
+            </button>
+        </div>
+
+        <span class="center margin-top">Već imaš nalog?
+            <a [routerLink]="['/map/auth/login']" style="margin-left: 5px" class="link">Prijavi se</a>
+        </span>
+    </form>
+</div>
+<ng-template #spinerBlock>
+    <div class="form-container mat-elevation-z2 spiner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

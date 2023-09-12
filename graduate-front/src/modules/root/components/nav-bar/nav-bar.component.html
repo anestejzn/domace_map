@@ -1,0 +1,117 @@
+<nav>
+    <a [routerLink]="['/map/home']" routerLinkActive="active" style="flex: 5"> 
+      <img
+        src="./assets/images/serbia.png"
+        alt="MyHome"
+        class="app-icon" />
+    </a>
+    <div class="spacer">
+      <div *ngIf="loggedUser">
+        <a
+          *ngIf="loggedUser.role.roleName === 'ROLE_USER'"
+          [routerLink]="['/map/orders']"
+          routerLinkActive="active"
+          mat-button
+          style="color:var(--deep-blue);"
+        >
+          PORUDŽBINE
+        </a>
+        <a
+          *ngIf="loggedUser.role.roleName === 'ROLE_USER'"
+          [routerLink]="['/map/household']"
+          routerLinkActive="active"
+          mat-button
+          color="primary"
+          style="color:var(--deep-blue);"
+        >
+          DOMAĆINSTVO
+        </a>
+
+        <a
+        *ngIf="loggedUser.role.roleName === 'ROLE_ADMIN'"
+        [routerLink]="['/map/admin/households']"
+        routerLinkActive="active"
+        mat-button
+        color="primary"
+        style="color:var(--deep-blue);"
+      >
+        DOMAĆINSTVA
+      </a>
+      <a
+        *ngIf="loggedUser.role.roleName === 'ROLE_ADMIN'"
+        [routerLink]="['/map/admin/reviews']"
+        routerLinkActive="active"
+        mat-button
+        color="primary"
+        style="color:var(--deep-blue);"
+      >
+        RECENZIJE
+      </a>
+      </div>
+      
+      <div *ngIf="loggedUser === null">
+        <a
+          [routerLink]="['/map/auth/login']"
+          routerLinkActive="active"
+          mat-button
+          color="primary"
+          class="login"
+        >
+          PRIJAVA
+        </a>
+        <a
+          [routerLink]="['/map/auth/register']"
+          routerLinkActive="active"
+          mat-raised-button
+          class="a-sign-up"
+        >
+          REGISTRACIJA
+        </a>
+      </div>
+    </div>
+    <div *ngIf="loggedUser" style="margin-top: 25px;">
+      <button *ngIf="loggedUser.role.roleName === 'ROLE_USER'" mat-icon-button style="margin-right: 20px;" (click)="navigateToCart()"> 
+        <mat-icon [matBadge]="storedCartNumber" matBadgeColor="warn" class="mat-icon-deep-blue" style="transform:scale(1.2)">shopping_cart</mat-icon>
+      </button>
+      <button
+        *ngIf="loggedUser.role.roleName === 'ROLE_USER'"
+        class="bell-icon"
+        mat-button
+        [matMenuTriggerFor]="bellNotificationsMenu"
+        (click)="seenNotifications()"
+      >
+        <mat-icon [matBadge]="storedNotificationsNumber" matBadgeColor="warn" class="mat-icon-deep-blue" style="transform:scale(1.2)">notifications</mat-icon>
+      </button>
+      <button mat-raised-button (click)="logOut()" class="logout-button">ODJAVI SE</button>
+    </div>
+
+    
+  <mat-menu class="bell-notifications-menu" #bellNotificationsMenu="matMenu">
+    <div
+    *ngFor="let notification of storedNotifications; index as i"
+    class="notification-content"
+    >
+      <div class="notification-row" (click)="notificationRedirect(notification.orderId)">
+        <div>
+          {{notification.dateTime | dateFormat}}
+        </div>
+        <div *ngIf="notification.type === 'NEW_ORDER'">
+          Nova porudžbina
+        </div>
+        <div *ngIf="notification.type === 'SENT_ORDER'">
+          Vaša porudžbina je poslata
+        </div>
+        <div *ngIf="notification.type === 'REJECTED_ORDER'">
+          Vaša porudžbina je odbijena
+        </div>
+        <div *ngIf="notification.type === 'RATE_ORDER'">
+          Oceni proizvode
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div *ngIf="storedNotifications !== null && storedNotifications.length < 1" class="notification-content">
+      Još uvek nemate obaveštenja
+    </div>
+  </mat-menu>
+    </nav>

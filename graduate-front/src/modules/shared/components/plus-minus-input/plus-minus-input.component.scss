@@ -1,0 +1,50 @@
+.stepper__input {
+    width: 60%;
+    max-width: 270px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.stepper__input .stepper-input-field {
+    color: #16489d;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0;
+    background: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height: 25px;
+    line-height: 25px;
+    border: none;
+    text-align: center;
+    margin: 0 7px;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    min-width: 30px;
+}
+  
+.stepper__input button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    background-color: #16489d;
+    min-width: 25px;
+    height: 25px;
+    line-height: 25px;
+    color: #fff;
+    user-select: none;
+    border: none;
+}

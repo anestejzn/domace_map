@@ -1,0 +1,30 @@
+.form-container {
+    max-width: 18rem;
+    margin-top: 3rem;
+    padding: 4rem;
+    border-color: var(--deep-blue)
+  }
+  
+  .sign-up-link {
+    font-size: 1.2rem;
+    margin-left: 8px;
+  }
+  
+  .google-button {
+    margin-top: 1rem;
+    margin-left: 5rem;
+    margin-right: 2.8rem;
+    display: inline-block;
+  }
+  
+  .facebook-button {
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  
+  .login-button {
+    background-color: var(--deep-blue);
+    font-size: 1.4rem;
+    color: var(--white);
+  }
+  

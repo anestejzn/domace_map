@@ -1,0 +1,240 @@
+@use "sass:math";
+@import "compass-mixins/lib/compass/css3";
+
+$size: 20px;
+$thickness: 5px;
+$angle: 40deg;
+$angleHover: 30deg;
+$angleActive: 25deg;
+
+@mixin arrowTransform( $angle, $x: 0, $y: 0 ) {
+  i:first-child {
+    transform: translate( $x, $y ) rotate( $angle );
+  }
+
+  i:last-child {
+    transform: translate( $x, -$y ) rotate( -$angle );
+  }
+}
+
+body {
+  background: #33ab83;
+}
+
+button {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.paginate {
+  position: relative;
+//   margin: 6px;
+  margin-top: 2rem;
+  width: $size;
+  height: $size;
+  cursor: pointer;
+  transform: translate3d(0,0,0); // fixes flicker in webkit
+
+  position: absolute;
+  top: 50%;
+  // -webkit-filter: drop-shadow( 0 2px 0px var(--deep-blue) );
+
+  i {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: $size;
+    height: $thickness;
+    border-radius: math.div($thickness, 2);
+    background: var(--deep-blue);
+
+    transition: all 0.15s ease;
+  }
+
+  &.left {
+    right: 58%;
+
+    i {
+      transform-origin: 0% 50%
+    }
+
+    @include arrowTransform( $angle, 0, -1px );
+
+    // &:hover {
+    //   @include arrowTransform( $angleHover, 0, -1px );
+    // }
+
+    // &:active {
+    //   @include arrowTransform( $angleActive, 1px, -1px );
+    // }
+
+    // &[data-state=disabled] {
+    //   @include arrowTransform( 0deg, -5px, 0 );
+
+    //   &:hover {
+    //     @include arrowTransform( 0deg, -5px, 0 );
+    //   }
+    // }
+  }
+
+  &.right {
+    left: 58%;
+
+    i {
+      transform-origin: 100% 50%
+    }
+
+    @include arrowTransform( $angle, 0, 1px );
+
+    // &:hover {
+    //   @include arrowTransform( $angleHover, 0, 1px );
+    // }
+
+    // &:active {
+    //   @include arrowTransform( $angleActive, 1px, 1px );
+    // }
+
+    // &[data-state=disabled] {
+    //   @include arrowTransform( 0deg, 5px, 0 );
+
+    //   &:hover {
+    //     @include arrowTransform( 0deg, 5px, 0 );
+    //   }
+    // }
+  }
+
+  &[data-state=disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.justify-content-center {
+  -webkit-box-pack: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+}
+
+
+.pagination {
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+padding-left: 0;
+list-style: none;
+border-radius: 0.25rem;
+}
+
+.page-link {
+position: relative;
+display: block;
+padding: 0.5rem 0.75rem;
+margin-left: -1px;
+line-height: 1.25;
+color: #007bff;
+background-color: var(--deep-blue);
+border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+color: #0056b3;
+text-decoration: none;
+background-color: #e9ecef;
+border-color: #dee2e6;
+}
+
+.page-link:focus {
+z-index: 2;
+outline: 0;
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.page-link:not(:disabled):not(.disabled) {
+cursor: pointer;
+}
+
+.page-item:first-child .page-link {
+margin-left: 0;
+border-top-left-radius: 0.25rem;
+border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+border-top-right-radius: 0.25rem;
+border-bottom-right-radius: 0.25rem;
+}
+
+.page-item.active .page-link {
+z-index: 1;
+color: var(--deep-blue);
+background-color: var(--deep-blue);
+border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+color: #6c757d;
+pointer-events: none;
+cursor: auto;
+background-color: #fff;
+border-color: #dee2e6;
+}
+
+.pagination-lg .page-link {
+padding: 0.75rem 1.5rem;
+font-size: 1.25rem;
+line-height: 1.5;
+}
+
+.pagination-lg .page-item:first-child .page-link {
+border-top-left-radius: 0.3rem;
+border-bottom-left-radius: 0.3rem;
+}
+
+.pagination-lg .page-item:last-child .page-link {
+border-top-right-radius: 0.3rem;
+border-bottom-right-radius: 0.3rem;
+}
+
+.pagination-sm .page-link {
+padding: 0.25rem 0.5rem;
+font-size: 0.875rem;
+line-height: 1.5;
+}
+
+.pagination-sm .page-item:first-child .page-link {
+border-top-left-radius: 0.2rem;
+border-bottom-left-radius: 0.2rem;
+}
+
+.pagination-sm .page-item:last-child .page-link {
+border-top-right-radius: 0.2rem;
+border-bottom-right-radius: 0.2rem;
+}
+
+.page-number{
+  font-size: 1.5rem;
+  font-weight: medium;
+  /* position: relative;
+  margin: 9px;
+  margin-top: 0.5rem; */
+  /* margin: 9px;
+  margin-top: 0.5rem; */
+  /* margin: 10px;
+  margin-top: 0.7rem; */
+}
+

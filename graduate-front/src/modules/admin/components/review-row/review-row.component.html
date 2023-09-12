@@ -1,0 +1,25 @@
+<div class="row">
+    <p style="width: 20px;text-align: center;">{{review.date | dateFormat}}</p>
+    <div class="review">
+        <div class="column">
+            <b>{{review.userName}}</b>
+            <ngx-stars 
+                [readonly]="true" 
+                customSize="1rem" 
+                [initialStars]="review.rate" 
+                color="var(--stars-gold)" 
+                style="margin-top: 5px;"
+            ></ngx-stars>
+            <p>{{review.text}}</p>
+        </div>
+        <div class="column">
+            <p>PROIZVOD: {{review.offer.name}}</p>
+            <p>Domaćinstvo {{review.householdName}}, {{review.householdCity}}</p>
+        </div>
+        <div>
+            <button mat-icon-button (click)="removeReview()">
+                <mat-icon class="mat-icon-deep-blue">delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

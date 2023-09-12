@@ -1,0 +1,41 @@
+<div class="search">
+  <h2>Pretraga proizvoda</h2>
+  <mat-form-field appearance="fill" style="width: 70%;">
+    <mat-label class="font-size-label">Unesite naziv mesta ili ulicu</mat-label>
+    <input
+        type="text"
+        matInput
+        ngx-google-places-autocomplete
+        [options]="options"
+        aria-label="State"
+        (onAddressChange)="addressChange($event)"
+        placeholder="Unesite grad ili ulicu"
+        class="font-size-input"
+    />
+    <mat-icon matSuffix>location_on</mat-icon>
+  </mat-form-field>
+  
+  <mat-form-field style="width: 70%;" appearance="fill">
+    <mat-label>Izaberite proizvode za pretragu</mat-label>
+    <mat-select multiple (selectionChange)="selectProductType()" [formControl]="selectedProductTypes">
+      <mat-option *ngFor="let productType of productTypes" [value]="productType">{{productType}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p *ngIf="noResults">Nema rezultata pretrage</p>
+
+  <!-- <mat-form-field appearance="fill" style="width: 70%">
+    <mat-label>Unesite naziv domaćinstva</mat-label>
+    <input 
+        type="text"
+        matInput
+        [matAutocomplete]="auto"
+        [formControl]="ownerControl"
+    >
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field> -->
+</div>

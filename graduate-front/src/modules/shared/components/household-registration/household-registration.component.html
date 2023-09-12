@@ -1,0 +1,79 @@
+<div class="form-container" *ngIf="!showSpiner; else spinerBlock">
+    <h2 class="text-center">Registrujte svoje domaćinstvo</h2>
+    <form color="primary" [formGroup]="registrationForm">
+        <div style="display: flex">
+            <mat-form-field appearance="fill">
+                <mat-label>Naziv</mat-label>
+                <input type="text" matInput formControlName="nameFormControl" 
+                    placeholder="Unesite naziv domaćinstva" />
+                <mat-error name="emptyName" *ngIf="registrationForm?.get('nameFormControl')?.hasError('required')">
+                    Naziv je <strong>obavezno</strong> polje.
+                </mat-error>
+                <mat-error name="invalidName" *ngIf="registrationForm?.get('nameFormControl')?.hasError('pattern')">
+                    Nevalidan unos.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div style="display: flex;">
+            <mat-form-field appearance="fill" style="margin-right: 2rem;">
+                <mat-label>Registarski broj</mat-label>
+                <input type="text" matInput formControlName="regNumberFormControl" 
+                    placeholder="Unesite registarski broj domaćinstva" />
+                <mat-error name="emptyRegNumber" *ngIf="registrationForm?.get('regNumberFormControl')?.hasError('required')">
+                    Registarski broj je <strong>obavezno</strong> polje.
+                </mat-error>
+                <mat-error name="invalidRegNumber" *ngIf="registrationForm?.get('regNumberFormControl')?.hasError('pattern')">
+                    Registarski broj se sastoji od 8 cifara.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Kontakt telefon</mat-label>
+                <input type="text" matInput formControlName="phoneNumberFormControl" 
+                    placeholder="Unesite kontakt telefon"/>
+                <mat-error name="emptyPhoneNumber" *ngIf="
+            registrationForm?.get('phoneNumberFormControl')?.hasError('required')
+          ">
+                    Kontakt je <strong>obavezno</strong> polje.
+                </mat-error>
+                <mat-error name="invalidPhoneNumber" *ngIf="
+            registrationForm?.get('phonenumberFormControl')?.hasError('pattern')
+          ">
+                    Nevalidan unos.
+                </mat-error>
+            </mat-form-field>
+        </div>
+    
+
+            <mat-form-field appearance="fill">
+                <mat-label class="font-size-label">Adresa</mat-label>
+                <input
+                    type="text"
+                    matInput
+                    ngx-google-places-autocomplete
+                    [options]="options"
+                    aria-label="State"
+                    (onAddressChange)="addressChange($event)"
+                    placeholder="Unesite preciznu adresu"
+                    class="font-size-input"
+                />
+                <mat-icon matSuffix>location_on</mat-icon>
+                <mat-error name="invalidAddress" *ngIf="invalidAddress">
+                    Adresa mora sadržati ime ulice i broj
+                </mat-error>
+              </mat-form-field>
+            
+        <br />
+        <div class="center" style="margin-bottom: 1rem;">
+            <button mat-raised-button class="green-button" (click)="register()" [disabled]="isDisabledButton()">
+                Registrujte domaćinstvo
+            </button>
+        </div>
+    </form>
+</div>
+<ng-template #spinerBlock>
+    <div class="form-container mat-elevation-z2 spiner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+

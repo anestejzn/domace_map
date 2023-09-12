@@ -1,0 +1,30 @@
+<h1 mat-dialog-title><b>Odbijanje porudžbine</b></h1>
+<mat-radio-group aria-labelledby="example-radio-group-label"
+                 class="example-radio-group" [(ngModel)]="defaultReason">
+  <mat-radio-button class="mat-radio-button-first-option" value="Trenutno nema proizvoda na stanju.">Trenutno nema proizvoda na stanju</mat-radio-button>
+  <mat-radio-button value="Kupac je uneo neispravne podatke.">Kupac je uneo neispravne podatke</mat-radio-button>
+</mat-radio-group>
+
+<div class="devider-container">
+  <div class="devider-line"><mat-divider></mat-divider></div>
+  <div class="devider-text mat-typography"><b>ILI</b></div>
+  <div class="devider-line"><mat-divider></mat-divider></div>
+</div>
+
+<div mat-dialog-content>
+  <textarea
+    matInput
+    rows="5"
+    placeholder="Unesi razlog..."
+    [(ngModel)]="customReason"></textarea>
+</div>
+
+<mat-error *ngIf="confirmIsPress && !isValidForm()">Morate izabrati jedan od ponudjenih ili uneti razlog odbijanja porudžbine.</mat-error>
+<div mat-dialog-actions class="center-buttons">
+  <button mat-button (click)="cancel()" style="margin-right:3rem">Odustani</button>
+  <button mat-button (click)="confirm()" cdkFocusInitial style="background-color: var(--deep-blue);">
+    Potvrdi
+  </button>
+
+</div>
+

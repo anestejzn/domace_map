@@ -1,0 +1,110 @@
+<div class="dialog-container" [ngStyle]="{'height': imageurls.length > 0 ? '32rem' : '25rem'}">
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <h1 mat-dialog-title class="center"><b>NOVI PROIZVOD</b></h1>
+        <button mat-icon-button><mat-icon class="close-button" [mat-dialog-close]="false">close</mat-icon></button>
+    </div>
+    <mat-dialog-content>
+        <form [formGroup]="createProductForm">
+            <mat-form-field style="width: 100%; display: flex;justify-content: space-around;" appearance="fill">
+                <mat-label>Tip proizvoda</mat-label>
+                <mat-select formControlName="productType">
+                    <mat-option *ngFor="let productType of productTypes" [value]="productType">{{productType}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="row">
+                <mat-form-field
+                    class="input"
+                    appearance="fill"
+                    style="min-height: 30px"
+                >
+                    <mat-label>Naziv</mat-label>
+                    <input
+                        matInput
+                        placeholder="Unesite naziv proizvoda"
+                        formControlName="name"
+                        name="name"
+                        required
+                    />
+                    <mat-error name="emptyName" *ngIf="createProductForm.get('name')?.hasError('required')">
+                        Naziv je <strong>obavezno</strong> polje.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field
+                    class="full-width"
+                    appearance="fill"
+                    style="min-height: 30px; width: 40%"
+                >
+                    <mat-label>Cena</mat-label>
+                    <input
+                        matInput
+                        placeholder="Unesite cenu proizvoda (din.)"
+                        formControlName="price"
+                        name="price"
+                        required
+                    />
+                    <mat-error name="emptyPrice" *ngIf="createProductForm.get('price')?.hasError('required')">
+                        Cena je <strong>obavezno</strong> polje.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field
+                    class="input"
+                    appearance="fill"
+                    style="min-height: 30px;"
+                >
+                    <mat-label>Opis</mat-label>
+                    <textarea 
+                        placeholder="Unesite opis svog proizvoda"
+                        matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                        formControlName="description"
+                    ></textarea>
+                </mat-form-field>
+
+                <mat-form-field
+                class="full-width"
+                appearance="fill"
+                style="min-height: 30px; width: 40%;"
+            >
+                <mat-label>Količina</mat-label>
+                <input
+                    matInput
+                    placeholder="Unesite količinu za unetu cenu"
+                    formControlName="colForPrice"
+                    name="col"
+                    required
+                />
+                <mat-error name="emptyColForPrice" *ngIf="createProductForm.get('colForPrice')?.hasError('required')">
+                    Količina za unetu cenu je <strong>obavezno</strong> polje.
+                </mat-error>
+            </mat-form-field>
+            </div>
+            <div style="overflow-x: scroll;display: inline; white-space: nowrap; height: 110px; justify-content: space-around;">
+
+                    <div class="col" *ngFor='let url of imageurls; let i = index'>
+                        <div class="image-container">
+                            <img class="image" [src]="getBase64Prefix() + url">
+                            <a (click)="removeImage(i)" style="cursor: pointer; float:right; position: absolute; bottom: 0px; margin-right: 0px;"><mat-icon color="var(--red)">delete</mat-icon></a>
+                        </div>
+                    </div>
+                </div>
+
+    
+            <div class="image-input">
+                <label for="file-upload" class="custom-file-button">
+                    <mat-icon style="display: inline-flex; vertical-align: top;">upload</mat-icon> DODAJ SLIKE PROIZVODA
+                </label>
+                <input id="file-upload" (change)="onSelectFile($event)" multiple accept="image/*" type="file"/>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button *ngIf="!this.product" class="green-button" (click)="createNewProduct()" [disabled]="isDisabledCreateButton()" [mat-dialog-close]="true">KREIRAJ</button>
+        <button mat-raised-button *ngIf="this.product" class="green-button" (click)="updateProduct()" [disabled]="isDisabledUpdateButton()" [mat-dialog-close]="true">POTVRDI IZMENE</button>
+    </mat-dialog-actions>
+</div>

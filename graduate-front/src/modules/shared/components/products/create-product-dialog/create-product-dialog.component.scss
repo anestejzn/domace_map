@@ -1,0 +1,103 @@
+
+.dialog-container {
+    width: 40rem;
+    overflow-x: hidden;
+}
+
+.close-button{
+    color: var(--deep-blue);
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    font-size: 1.2rem;
+    margin: 1rem;
+}
+
+mat-checkbox {
+    margin-left: 1.4rem;
+}
+
+::ng-deep.mat-checkbox-checked.mat-accent.mat-checkbox-disabled .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: var(--deep-blue) !important;
+    color: var(--deep-blue);
+  }
+
+.car-img {
+    margin-left: 5rem;
+    height:10rem; 
+    width:10rem; 
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin-left: 1rem;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.input{
+    width: 40%;
+}
+
+
+.image{
+    width: 100px;
+    height: 90px;
+}
+
+.image-input {
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.col{
+    display: inline-flex;
+    width: 110px;
+    padding: 2px;
+    height: 130px;
+    margin-right: 20px;
+}
+.image-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--deep-blue);
+    border-radius: 3px;
+    padding: 2px; 
+    position: relative;
+}
+
+
+
+.center{
+    align-items: center;
+}
+
+label {
+    color: var(--deep-blue);
+    padding: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+
+#file-input{
+    display: none;
+}
+
+input[type="file"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+
+.custom-file-button{
+    color: var(--deep-blue);
+    font-family: Arial, 'Helvetica', sans-serif;
+}

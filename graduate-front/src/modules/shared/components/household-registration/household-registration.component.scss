@@ -1,0 +1,45 @@
+.form-container {
+    padding: 1% 5%;
+    margin-top: 6rem;
+    max-width: 30rem;
+    border: 1px solid var(--deep-blue);
+}
+
+.email-colomn {
+    margin-top: 1rem;
+}
+
+.password-colomn {
+    margin-top: 1rem;
+    margin-right: 2rem;
+    max-width: 46.4%;
+}
+
+.role-colomn {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    max-width: 46.4%;
+}
+
+h1 {
+    margin-bottom: 1px;
+}
+
+button {
+    margin-top: 5%;
+}
+
+.spiner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 15rem;
+    min-height: 20rem;
+}
+
+
+.address{
+    border: 1px solid var(--deep-blue); 
+    border-radius: 10px;
+}
+

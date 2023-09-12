@@ -1,0 +1,20 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-size: 1rem;
+  background-color: var(--white);
+  color: var(--deep-blue);
+  height: 100%;
+}
+
+:root {
+  --gray: #d7e3ed;
+  --deep-blue: #0F5490;
+  --red: #b73e3e;
+  --white: #ffffff;
+  --gray-transparent: rgba(231, 230, 230, 0.47);
+  --stars-gold:#daa520;
+}

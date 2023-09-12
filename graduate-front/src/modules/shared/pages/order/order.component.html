@@ -1,0 +1,99 @@
+<div class="order">
+    <div class="row">
+        <div>
+            <h1>Porudžbina broj 000{{order.id}}</h1>
+            <p>Datum i vreme: {{order.dateTime | dateFormat}}</p>
+        </div>
+        <div>
+            <div class="data" *ngIf="storedHousehold !== null && storedHousehold.id === order.household.id">
+                <b>Poručeno od:</b> {{order.user.name}} {{order.user.surname}}<br/>
+                <b>Adresa za dostavu: </b> {{order.addressOrder.street}} {{order.addressOrder.number}}, {{order.addressOrder.city}}
+            </div>
+            <div class="data" *ngIf="storedHousehold === null || (storedHousehold !== null && storedHousehold.id !== order.household.id)">
+                <p>Domaćinstvo {{order.household.name}}</p>
+                <p>{{order.household.address.street}} {{order.household.address.number}}, {{order.household.address.city}}</p>
+                <p>{{order.household.phoneNumber}}</p>
+            </div>
+            <div *ngIf="storedHousehold !== null && storedHousehold.id === order.household.id" class="margin-top">
+                <mat-chip-list aria-label="Status household">
+                    <mat-chip *ngIf="order.sentAt !== null && order.deliveredAt === null">
+                        <mat-icon class="mat-icon-deep-blue">check</mat-icon> Poslato
+                    </mat-chip>
+                    <mat-chip *ngIf="order.deliveredAt !== null">
+                        <mat-icon class="mat-icon-deep-blue">check</mat-icon> Isporučeno
+                    </mat-chip>
+                    <mat-chip *ngIf="order.cancelled">
+                        <mat-icon class="mat-icon-deep-blue">close</mat-icon> Odbijeno
+                    </mat-chip>
+                </mat-chip-list>
+                <div class="row" *ngIf="order.sentAt === null || order.cancelled">
+                    <button mat-raised-button style="width: 220px; margin-right: 10px;" (click)="markAsSent()">Označi kao poslato</button>
+                    <button mat-stroked-button (click)="reject()">Odbij</button>
+                </div>
+            </div>
+
+            <div *ngIf="storedHousehold === null || (storedHousehold !== null && storedHousehold.id !== order.household.id)" class="margin-top">
+                <mat-chip-list aria-label="Status household">
+                    <mat-chip *ngIf="order.sentAt !== null && order.deliveredAt === null">
+                        <mat-icon class="mat-icon-deep-blue">check</mat-icon> Poslato
+                    </mat-chip>
+                    <mat-chip *ngIf="order.cancelled" [matTooltip]="getCancelReason(order.cancelReason)">
+                        <mat-icon class="mat-icon-deep-blue">close</mat-icon> Odbijeno
+                    </mat-chip>
+                </mat-chip-list>
+                <button mat-raised-button style="width: 220px;" *ngIf="order.sentAt !== null && order.deliveredAt === null" (click)="markAsDelivered()">Označi kao isporučeno</button>
+            </div>
+        </div>
+    </div>
+    <h2>Proizvodi</h2>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef align="center">Naziv proizvoda</th>
+            <td mat-cell *matCellDef="let element">
+                <img [src]="getImage(element.offer.type)" width="25px" height="25px"/>
+                {{element.offer.name}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="colForPrice">
+            <th mat-header-cell *matHeaderCellDef>Količina - Cena</th>
+            <td mat-cell *matCellDef="let element">{{element.offer.colForPrice}} - {{element.offer.price}} din.</td>
+        </ng-container>
+
+        <ng-container matColumnDef="col">
+            <th mat-header-cell *matHeaderCellDef>Izabrana količina</th>
+            <td mat-cell *matCellDef="let element">
+               {{element.quantity}} x {{element.offer.colForPrice}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef style="width: 120px;">Cena</th>
+            <td mat-cell *matCellDef="let element" style="width: 120px;">
+                {{element.price}} din.
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="rate">
+            <th mat-header-cell *matHeaderCellDef style="width: 70px;"></th>
+            <td mat-cell *matCellDef="let element" style="width: 70px;"> 
+                <button *ngIf="!element.rated" mat-stroked-button class="mat-icon-deep-blue button-rate" (click)="rate(element.id, element.offer.id)" [disabled]="order.cancelled">
+                    <mat-icon style="margin-bottom: 5px;">star</mat-icon> Ocenite
+                </button>
+                <mat-chip-list aria-label="Rate" *ngIf="element.rated">
+                    <mat-chip>
+                        <mat-icon class="mat-icon-deep-blue">star</mat-icon>&nbsp;&nbsp;Ocenjeno
+                    </mat-chip>
+                </mat-chip-list>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+        <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
+    </table>
+
+
+   
+  </div>

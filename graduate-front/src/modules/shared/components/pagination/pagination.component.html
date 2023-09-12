@@ -1,0 +1,25 @@
+<div class="text-center">
+    <ul class="pagination justify-content-center">
+      <li
+        class="page-item"
+        (click)="pageSelected(currentPage - 1)"
+        *ngIf="currentPage >= 1"
+      >
+      <button class="paginate left"><i></i><i></i></button>
+      </li>
+
+      <li
+        class="paginate page-item page-number"
+      >
+       <b>{{currentPage+1}}/{{totalPages}} </b>
+      </li>
+
+      <li
+        class="page-item"
+        (click)="pageSelected(currentPage + 1)"
+        *ngIf="existNextPage()"
+      >
+      <button class="paginate right"><i></i><i></i></button>
+      </li>
+    </ul>
+</div>

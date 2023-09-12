@@ -1,0 +1,119 @@
+.temp {
+  position: relative;
+  display: inline-block;
+}
+
+.bottomRight {
+  bottom: 0;
+  right: 0;
+}
+
+.login {
+  background-color: var(--deep-blue);
+  margin-right: 1rem;
+  color: var(--white);
+}
+
+.app-icon {
+  margin-top: 0.6rem;
+  height: 4rem;
+  width: 4rem;
+  margin-left: 1rem;
+}
+
+.a-sign-up {
+  background-color: var(--white);
+  color: var(--deep-blue);
+}
+
+a {
+  font-weight: bold;
+}
+.mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0;
+  z-index: 1000;
+}
+
+.toggle-activity-status {
+color: white;
+margin-left: 0.4rem;
+}
+
+.toggle {
+margin-left: -0.2rem;
+transform: scale(0.9);
+}
+  
+.mat-raised-button{
+    border:2px solid var(--white);
+}
+
+.spacer {
+  flex: 1 1 auto;
+  margin-top: 30px;
+}
+
+.logout-button {
+  color: var(--deep-blue);
+  background-color: white;
+  border-color: var(--deep-blue);
+}
+
+nav{
+  position: sticky;
+  overflow: hidden;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex; 
+  flex-direction: row; 
+  margin: 2px 20px 10px 20px; 
+  border-bottom: 0.5px solid var(--deep-blue);
+}
+
+.nav-bar-content{
+  display: flex; 
+  flex-direction: row; 
+  margin: 5px 20px 10px 20px; 
+  border-bottom: 0.5px solid var(--deep-blue);
+}
+
+.mat-badge-content {
+  background: var(--red);
+  color: var(--white);
+}
+
+::ng-deep .bell-notifications-menu {
+  margin-top: 10px;
+  max-height: 18rem !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.notification-row {
+  border-radius: 10px;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.notification-text {
+  color: var(--white);
+}
+
+.notification-row:hover {
+  background-color: #283b50;
+}
+
+.notification-content {
+  margin: 0.5rem;
+  padding: 0.2rem;
+  min-height: 2rem;
+  color: white;
+}
+
+div {
+  font-family: Arial, Helvetica, sans-serif;
+}
+  

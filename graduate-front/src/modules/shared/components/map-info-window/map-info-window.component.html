@@ -1,0 +1,22 @@
+
+<div style="justify-content: center; align-items: center;">
+    <h3>{{infoContent.name}}</h3>
+    <p>{{infoContent.description}}</p>
+    <p>{{infoContent.colForPrice}} - {{infoContent.price}} din.</p>
+    <p>Domaćinstvo {{infoContent.household}}</p>
+    <div *ngIf="(storedHousehold === null || (storedHousehold !== null && infoContent.householdId !== storedHousehold.id)) && (storedUser !== null && storedUser.role.roleName === 'ROLE_USER')">
+      <br/>
+      <div style="flex-direction: row; display: flex; justify-content: space-between;">
+        <mat-icon>shopping_cart</mat-icon>
+        <app-plus-minus-input [step]="1" [min]="1" [max]="100" [initialValue]="1" ariaLabelLess="Less 10"
+          ariaLabelMore="Plus 10" (currentValue)="updateCurrentValue($event)">
+        </app-plus-minus-input>
+      </div>
+    <br/>
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <p>{{value ?? 1}} x {{infoContent.colForPrice}}</p>
+      <button mat-raised-button style="font-size: 10px; margin-left: 10px" (click)="addToCart()">DODAJ U KORPU</button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,43 @@
+
+<div class="row">
+  <button *ngIf="storedUser.role.roleName === 'ROLE_USER'" mat-stroked-button class="button-add" (click)="createNewProduct()">
+    <mat-icon style="font-weight: bold;margin-bottom: 3px;">add</mat-icon> DODAJ PROIZVOD
+  </button>
+  <app-household-info [storedHousehold]="storedHousehold"></app-household-info>
+</div>
+<hr style="margin-top: 1rem;"/>
+<div *ngIf="products.length === 0">
+  <h2 style="text-align: center;">Nema proizvoda</h2>
+</div>
+ <div *ngIf="products.length > 0">
+  <h2 style="text-align: center;">Proizvodi</h2>
+  <div
+    *ngFor="let product of products; let i = index"
+    class="products"
+  >
+    <div *ngIf="i % 3 === 0" style="display: flex">
+      <app-product-row [product]="product" [index]="i" (deleteEventEmitter)="loadProducts()"></app-product-row>
+      <app-product-row
+        style="margin-left: 2rem"
+        *ngIf="i < products.length - 1"
+        [product]="products.at(i + 1)"
+        [index]="i + 1"
+        (deleteEventEmitter)="loadProducts()"
+      ></app-product-row>
+        <app-product-row
+        style="margin-left: 2rem"
+        *ngIf="i < products.length - 2"
+        [product]="products.at(i + 2)"
+        [index]="i + 2"
+        (deleteEventEmitter)="loadProducts()"
+      ></app-product-row>
+  </div>
+</div>
+  
+<app-pagination 
+  class="paginator" 
+  [totalPages]="totalPages" 
+  [currentPage]="currentPage"
+  (pageIsSelected)="changePage($event)"
+>
+</app-pagination>

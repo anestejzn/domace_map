@@ -1,0 +1,3 @@
+<div *ngFor="let review of reviews">
+    <app-review-row [review]="review" (removeReviewEmitter)="loadReviews()"></app-review-row>
+</div>

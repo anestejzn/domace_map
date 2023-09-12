@@ -1,0 +1,6 @@
+<div *ngIf="storedHousehold">
+    <app-show-products [storedHousehold]="storedHousehold"></app-show-products>
+</div>
+<div *ngIf="!storedHousehold && storedUser.role.roleName === 'ROLE_USER'">
+    <app-household-registration></app-household-registration>
+</div>

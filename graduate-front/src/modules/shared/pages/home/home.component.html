@@ -1,0 +1,9 @@
+
+<div style="display:flex; flex-direction: row;height: 100%; width: 100%;">
+    <div style="flex:1;height: 100%; width: 100%;">
+      <app-search (markersEvent)="updateMarkers($event)" (centerEvent)="updateCenter($event)"></app-search>
+    </div>
+    <div style="height: 100%; width: 100%;flex:2">
+        <map-page [markers]="markers" [center]="center"></map-page>
+    </div>
+</div>

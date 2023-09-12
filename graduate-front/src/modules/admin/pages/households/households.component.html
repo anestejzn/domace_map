@@ -1,0 +1,33 @@
+<div *ngIf="households.length > 0">
+    <div
+        *ngFor="let household of households; let i = index"
+        class="div"
+        style="margin-left:11%; margin-top:4rem;"
+    >
+        <div *ngIf="i % 3 === 0" style="display: flex">
+            <app-household-row 
+                [household]="household" 
+                [index]="i" 
+            ></app-household-row>
+            <app-household-row
+                style="margin-left: 2rem"
+                *ngIf="i < households.length - 1"
+                [household]="households.at(i + 1)"
+                [index]="i + 1"
+            ></app-household-row>
+            <app-household-row
+                style="margin-left: 2rem"
+                *ngIf="i < households.length - 2"
+                [household]="households.at(i + 2)"
+                [index]="i + 2"
+            ></app-household-row>
+    </div>
+</div>
+    
+  <!-- <app-pagination 
+    class="paginator" 
+    [totalPages]="totalPages" 
+    [currentPage]="currentPage"
+    (pageIsSelected)="changePage($event)"
+  >
+  </app-pagination> -->
