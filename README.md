@@ -5,7 +5,7 @@
 </h1>
 
 <p align="center">
-  • <a href="#-project-setup-and-commands">FTN, Novi Sad, Septembar 2023</a>
+  • FTN, Novi Sad, Septembar 2023
   •
 </p>
 
@@ -69,7 +69,8 @@
         - material (imports for angular material)
         - root (starting point for frontend)
         - shared (components used by multiple user roles, interceptors, pipes)
-* Note* All user based elements are consisting of pages, components and services
+
+        *** All user based elements are consisting of pages, components and services ***
 
 
 
