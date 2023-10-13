@@ -46,6 +46,7 @@ export class SearchComponent implements OnInit {
   // }
 
   addressChange(address: any){
+    console.log(address.geometry.location.lng(), address.geometry.location.lat());
     this.noResults = false;
     this.currentAddress = address;
     const search: Search = {

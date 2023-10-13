@@ -32,6 +32,8 @@ export class MapInfoWindowComponent implements OnInit {
     this.user.subscribe(
       response => this.storedUser = response
     );
+
+
   }
 
   updateCurrentValue(event){

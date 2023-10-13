@@ -19,5 +19,4 @@ export const AdminRoutes: Routes = [
     canActivate: [RoleGuard],
     data: {expectedRoles: "ROLE_ADMIN"}
   }
- 
-]
+];

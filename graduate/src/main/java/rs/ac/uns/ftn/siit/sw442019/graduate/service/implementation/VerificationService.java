@@ -28,16 +28,6 @@ public class VerificationService {
     @Autowired
     private EmailService emailService;
 
-    public RegistrationVerification get(Long id) throws EntityNotFoundException {
-
-        if(verificationRepository.getRegistrationVerificationsById(id).isPresent()){
-            return verificationRepository.getRegistrationVerificationsById(id).get();
-        }
-        else{
-            throw new EntityNotFoundException(id, EntityType.VERIFY);
-        }
-    }
-
     public RegistrationVerification getByHashedId(String id) throws EntityNotFoundException {
 
         if(verificationRepository.getRegistrationVerificationsByHashedId(id).isPresent()){
@@ -58,10 +48,10 @@ public class VerificationService {
             return verify;
         } else if (verify.wrongCodeButHasTries()){
             this.saveChanges(verify, verify.incrementNumOfTries() >= MAX_NUM_VERIFY_TRIES);
-            throw new WrongVerifyTryException("Your security code is not accepted. Try again.");
+            throw new WrongVerifyTryException("Uneti kod je neispravan. Pokušajte ponovo!");
         } else {
             saveChanges(verify, true);
-            throw new WrongVerifyTryException("Your verification code is either expired or typed wrong 3 times. Reset code.");
+            throw new WrongVerifyTryException("Vaš verifikacioni kod je istekao.");
         }
     }
 

@@ -35,21 +35,4 @@ public class HTMLEmailService {
             throw new MailCannotBeSentException(from);
         }
     }
-
-    public void sendMailWithAttachment(String from, String to, String subject, String body, File attachment) throws MessagingException, IOException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(body, true);
-
-        helper.addAttachment("attachment.txt", new ByteArrayResource(Files.readAllBytes(attachment.toPath())));
-
-//        helper.getMimeMessage().getAttachments()[0].addHeader("Content-Disposition", "attachment");
-
-        helper.setFrom(from);
-
-        mailSender.send(message);
-    }
-
 }

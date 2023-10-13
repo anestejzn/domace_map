@@ -40,14 +40,6 @@ public class WebSocketService {
         sendNotification(orderId, email, NotificationType.SENT_ORDER, "/sent-order", userId);
     }
 
-    public void sendRateOrderNotification(
-            final Long orderId,
-            final String email,
-            final Long userId
-    ) {
-        sendNotification(orderId, email, NotificationType.RATE_ORDER, "/rate-order", userId);
-    }
-
     private void sendNotification(Long orderId, String email, NotificationType type, String destination, Long userId) {
 
         Notification notification = notificationService.save(orderId, type, LocalDateTime.now(), userId);

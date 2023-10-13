@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.siit.sw442019.graduate.security;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.lang.NonNull;
@@ -14,13 +13,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import rs.ac.uns.ftn.siit.sw442019.graduate.dto.response.UserResponse;
 import rs.ac.uns.ftn.siit.sw442019.graduate.exception.EntityNotFoundException;
-import rs.ac.uns.ftn.siit.sw442019.graduate.exception.FingerprintCookieNotFoundException;
 import rs.ac.uns.ftn.siit.sw442019.graduate.exception.InvalidJWTException;
 import rs.ac.uns.ftn.siit.sw442019.graduate.model.User;
 import rs.ac.uns.ftn.siit.sw442019.graduate.service.implementation.UserService;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static rs.ac.uns.ftn.siit.sw442019.graduate.security.JwtProperties.HEADER_STRING;
 import static rs.ac.uns.ftn.siit.sw442019.graduate.security.JwtProperties.TOKEN_PREFIX;
@@ -55,12 +52,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private Authentication getAuthentication(HttpServletRequest request) {
         try {
             return getUsernamePasswordAuthentication(request);
-        } catch (EntityNotFoundException | InvalidJWTException | FingerprintCookieNotFoundException ignored) {
+        }  catch (InvalidJWTException | EntityNotFoundException e) {
             return null;
         }
     }
 
-    private Authentication getUsernamePasswordAuthentication(HttpServletRequest request) throws EntityNotFoundException, FingerprintCookieNotFoundException, InvalidJWTException {
+    private Authentication getUsernamePasswordAuthentication(HttpServletRequest request) throws EntityNotFoundException, InvalidJWTException {
         DecodedJWT jwt = JWTUtils.extractJWTFromRequest(request);
         User user = userService.getVerifiedUser(JWTUtils.extractEmailFromJWT(jwt));
 
@@ -80,5 +77,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 principal.getAuthorities()
         );
     }
-
 }

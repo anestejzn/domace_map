@@ -7,7 +7,7 @@
             <div class="row-title">
               <p style="font-size: 25px; font-weight: bold;flex:1">{{product.name}}</p>
               <button *ngIf="storedUser.role.roleName === 'ROLE_USER'" mat-icon-button style="margin-top: -20px;" (click)="deleteProduct()"><mat-icon class="mat-icon-deep-blue">delete</mat-icon></button>
-              <button *ngIf="storedUser.role.roleName === 'ROLE_USER'" style="margin-top: -20px;" (click)="updateProduct()"><mat-icon class="mat-icon-deep-blue">edit</mat-icon></button>
+              <button *ngIf="storedUser.role.roleName === 'ROLE_USER'" mat-icon-button style="margin-top: -20px;" (click)="updateProduct()"><mat-icon class="mat-icon-deep-blue">edit</mat-icon></button>
             </div>
             <p [matTooltip]="product.description" matTooltipPosition="below"
                 style="cursor: pointer; font-size: 13px;">{{product.description.slice(0,45)}}...

@@ -1,6 +1,7 @@
 <div class="dialog-container" [ngStyle]="{'height': imageurls.length > 0 ? '32rem' : '25rem'}">
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
-        <h1 mat-dialog-title class="center"><b>NOVI PROIZVOD</b></h1>
+        <h1 mat-dialog-title class="center" *ngIf="createProductForm.get('name').value === ''"><b>NOVI PROIZVOD</b></h1>
+        <h1 mat-dialog-title class="center" *ngIf="createProductForm.get('name').value !== ''"><b>IZMENA PODATAKA O PROIZVODU</b></h1>
         <button mat-icon-button><mat-icon class="close-button" [mat-dialog-close]="false">close</mat-icon></button>
     </div>
     <mat-dialog-content>

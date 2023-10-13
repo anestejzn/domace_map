@@ -41,42 +41,53 @@ public class OrderService implements IOrderService {
     public void saveOrder(Long userId, List<OrderItem> items, String street, String number, String city, String phoneNumber) throws EntityNotFoundException, MailCannotBeSentException {
         RegularUser user = regularUserService.getRegularUserById(userId);
         Address address = addressService.save(new Address(city, street, number));
-        List<OfferOrder> orders = new LinkedList<>();
         Map<Long, OrderEmail> dict = new HashMap<>();
         Map<Household, List<OfferOrder>> householdOfferOrders = new HashMap<>();
         for(OrderItem item : items) {
             Offer offer = offerService.getById(item.getOfferId());
             OfferOrder offerOrder = offerOrderService.save(new OfferOrder(offer, item.getQuantity(), item.getPrice()));
-            if(householdOfferOrders.containsKey(offer.getHousehold())){
-                householdOfferOrders.get(offer.getHousehold()).add(offerOrder);
-            } else {
-                List<OfferOrder> offerOrderList = new LinkedList<>();
-                offerOrderList.add(offerOrder);
-                householdOfferOrders.put(offer.getHousehold(), offerOrderList);
-            }
-            if(dict.containsKey(offer.getHousehold().getId())){
-                dict.get(offer.getHousehold().getId()).getItems().add(new ItemEmail(offer.getName(), "", String.format("%d x %s", item.getQuantity(), offer.getColForPrice()), item.getPrice()));
-            }
-            else {
-                List<ItemEmail> newList = new LinkedList<>();
-                newList.add(new ItemEmail(offer.getName(), getImageForType(offer.getType()), String.format("%d x %s", item.getQuantity(), offer.getColForPrice()), item.getPrice()));
-
-                dict.put(offer.getHousehold().getId(), new OrderEmail(
-                        String.format("%s %s", user.getName(), user.getSurname()),
-                        String.format("%s %s", street, number),
-                        city, phoneNumber, String.format("000%d", offerOrder.getId()),
-                                newList, 0.00)
-                        );
-            }
+            prepareForSaving(householdOfferOrders, offer, offerOrder);
+            prepareForSendingEmail(street, number, city, phoneNumber, user, dict, item, offer, offerOrder);
         }
 
+        saveOrdersAndSendEmails(phoneNumber, user, address, dict, householdOfferOrders);
+    }
+
+    private void saveOrdersAndSendEmails(String phoneNumber, RegularUser user, Address address, Map<Long, OrderEmail> dict, Map<Household, List<OfferOrder>> householdOfferOrders) throws MailCannotBeSentException {
         for (Map.Entry<Household,List<OfferOrder>> entry : householdOfferOrders.entrySet()) {
             Order order = orderRepository.save(new Order(user, address, phoneNumber, entry.getKey(), entry.getValue(), LocalDateTime.now()));
             for(OfferOrder offerOrder : entry.getValue()) {
                 offerOrder.setOrder(order);
                 offerOrderService.save(offerOrder);
             }
-            sendEmails(dict, order.getId());
+            sendEmailsAndNotifications(dict, order.getId());
+        }
+    }
+
+    private static void prepareForSendingEmail(String street, String number, String city, String phoneNumber, RegularUser user, Map<Long, OrderEmail> dict, OrderItem item, Offer offer, OfferOrder offerOrder) {
+        if(dict.containsKey(offer.getHousehold().getId())){
+            dict.get(offer.getHousehold().getId()).getItems().add(new ItemEmail(offer.getName(), "", String.format("%d x %s", item.getQuantity(), offer.getColForPrice()), item.getPrice()));
+        }
+        else {
+            List<ItemEmail> newList = new LinkedList<>();
+            newList.add(new ItemEmail(offer.getName(), getImageForType(offer.getType()), String.format("%d x %s", item.getQuantity(), offer.getColForPrice()), item.getPrice()));
+
+            dict.put(offer.getHousehold().getId(), new OrderEmail(
+                    String.format("%s %s", user.getName(), user.getSurname()),
+                    String.format("%s %s", street, number),
+                            city, phoneNumber, String.format("000%d", offerOrder.getId()),
+                            newList, 0.00)
+                    );
+        }
+    }
+
+    private static void prepareForSaving(Map<Household, List<OfferOrder>> householdOfferOrders, Offer offer, OfferOrder offerOrder) {
+        if(householdOfferOrders.containsKey(offer.getHousehold())){
+            householdOfferOrders.get(offer.getHousehold()).add(offerOrder);
+        } else {
+            List<OfferOrder> offerOrderList = new LinkedList<>();
+            offerOrderList.add(offerOrder);
+            householdOfferOrders.put(offer.getHousehold(), offerOrderList);
         }
     }
 
@@ -165,14 +176,14 @@ public class OrderService implements IOrderService {
     }
 
 
-    private void sendEmails(Map<Long, OrderEmail> dict, Long orderId) throws MailCannotBeSentException {
+    private void sendEmailsAndNotifications(Map<Long, OrderEmail> dict, Long orderId) throws MailCannotBeSentException {
         List<RegularUser> regularUsers = regularUserService.getAll();
         for(RegularUser regularUser : regularUsers){
             if(regularUser.getHousehold() != null){
                 if(dict.containsKey(regularUser.getHousehold().getId())){
                     OrderEmail orderEmail = dict.get(regularUser.getHousehold().getId());
                     orderEmail.setTotalPrice(calculatePrice(orderEmail.getItems()));
-                    emailService.sendOrderMail("NOVA PORUDŽBINA", "Imate novu porudžbinu. Molimo Vas, obavestite nas o statusu porudžbine.", orderEmail, regularUser.getEmail());
+                    emailService.sendOrderMail("NOVA PORUDZBINA", "Imate novu porudzbinu. Molimo Vas, obavestite nas o statusu porudzbine.", orderEmail, regularUser.getEmail());
                     webSocketService.sendNewOrderNotification(orderId, regularUser.getEmail(), regularUser.getId());
                 }
             }

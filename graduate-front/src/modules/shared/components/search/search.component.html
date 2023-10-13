@@ -23,19 +23,4 @@
   </mat-form-field>
 
   <p *ngIf="noResults">Nema rezultata pretrage</p>
-
-  <!-- <mat-form-field appearance="fill" style="width: 70%">
-    <mat-label>Unesite naziv domaćinstva</mat-label>
-    <input 
-        type="text"
-        matInput
-        [matAutocomplete]="auto"
-        [formControl]="ownerControl"
-    >
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field> -->
 </div>

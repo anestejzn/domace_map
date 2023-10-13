@@ -29,10 +29,6 @@ public class JWTUtils {
         return decodeToken(extractTokenFromRequest(request));
     }
 
-    public static String extractTokenFromJWT(DecodedJWT jwt) {
-        return jwt.getToken();
-    }
-
     public static String extractEmailFromJWT(DecodedJWT jwt) throws InvalidJWTException {
         String email = jwt.getSubject();
         if (email == null)
@@ -40,11 +36,4 @@ public class JWTUtils {
         return email;
     }
 
-    public static String extractFingerprintFromJWT(DecodedJWT jwt) {
-        return jwt.getClaim(FingerprintProperties.FINGERPRINT_CLAIM).asString();
-    }
-
-    public static boolean jwtHasExpired(String token) {
-        return decodeToken(token).getExpiresAt().before(new Date());
-    }
 }

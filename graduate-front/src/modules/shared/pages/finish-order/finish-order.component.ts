@@ -109,9 +109,13 @@ export class FinishOrderComponent implements OnInit {
   }
 
   addressChange(address){
-    this.address.street = address.address_components[0].short_name;
-    this.address.number = address.address_components[1].short_name;
-    this.address.city = address.address_components[2].short_name;
+    // this.address.street = address.address_components[1].short_name;
+    // this.address.number = address.address_components[0].short_name;
+    // this.address.city = address.address_components[2].short_name;
+    // console.log(this.address);
+    this.address.street = "Bulevar Evrope";
+    this.address.number = "10";
+    this.address.city = "Novi Sad";
     // this.address.lon = address.geometry.location.lng();
     // this.address.lat = address.geometry.location.lat();
   }

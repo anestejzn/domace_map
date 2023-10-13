@@ -15,7 +15,7 @@
                 <p>{{order.household.phoneNumber}}</p>
             </div>
             <div *ngIf="storedHousehold !== null && storedHousehold.id === order.household.id" class="margin-top">
-                <mat-chip-list aria-label="Status household">
+                <mat-chip-list aria-label="Status household" style="margin-right: 100px">
                     <mat-chip *ngIf="order.sentAt !== null && order.deliveredAt === null">
                         <mat-icon class="mat-icon-deep-blue">check</mat-icon> Poslato
                     </mat-chip>
@@ -33,7 +33,7 @@
             </div>
 
             <div *ngIf="storedHousehold === null || (storedHousehold !== null && storedHousehold.id !== order.household.id)" class="margin-top">
-                <mat-chip-list aria-label="Status household">
+                <mat-chip-list aria-label="Status household" >
                     <mat-chip *ngIf="order.sentAt !== null && order.deliveredAt === null">
                         <mat-icon class="mat-icon-deep-blue">check</mat-icon> Poslato
                     </mat-chip>
@@ -41,7 +41,7 @@
                         <mat-icon class="mat-icon-deep-blue">close</mat-icon> Odbijeno
                     </mat-chip>
                 </mat-chip-list>
-                <button mat-raised-button style="width: 220px;" *ngIf="order.sentAt !== null && order.deliveredAt === null" (click)="markAsDelivered()">Označi kao isporučeno</button>
+                <button mat-raised-button style="width: 220px; margin-left: 10px;" *ngIf="order.sentAt !== null && order.deliveredAt === null" (click)="markAsDelivered()">Označi kao isporučeno</button>
             </div>
         </div>
     </div>
